@@ -1,0 +1,18 @@
+
+services:
+  redis-stack:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+
+  go-ratelimiter:
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: go-ratelimiter
+    environment:
+      - LIMIT_IP=8
+      - LIMIT_TOKEN=6
+      - OVER_LIMIT_COOLDOWN=7
